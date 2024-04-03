@@ -100,29 +100,159 @@ class ApprovalPage extends StatelessWidget {
                   return Column(
                     children: <Widget>[
                       SizedBox(height: 16.0),
-                      _buildDetailItem(
-                          'Proposal Token', state.proposal.proposalToken),
-                      _buildDetailItem(
-                          'Vendor Name', state.proposal.vendor!.vendorName),
-                      _buildDetailItem('Vendor Address',
-                          state.proposal.vendor!.vendorAddress),
-                      _buildDetailItem(
-                          'Objective', state.proposal.proposalObjective),
-                      _buildDetailItem(
-                          'Description', state.proposal.proposalDescription),
-                      _buildDetailItem('Required Date',
-                          state.proposal.proposalRequireDate.toString()),
-                      _buildDetailItem(
-                          'Budget',
-                          formatRupiah(
-                              state.proposal.proposalBudget as double)),
-                      _buildDetailItem('Note', state.proposal.proposalNote),
-                      _buildDetailItem('Type', state.proposal.proposalType),
-                      _buildDetailItem('Status', state.proposal.proposalStatus),
-                      _buildDetailItem('Negotiation Note',
-                          state.proposal.proposalNegotiationNote),
-                      _buildDetailItem('Department',
-                          state.proposal.departement!.departementName),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 5.0),
+                          Card(
+                            child: Container(
+                              margin: EdgeInsets.all(15),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        state.proposal.proposalObjective,
+                                        style: TextStyle(
+                                            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.token,color: Colors.white),
+                                      SizedBox(width: 10,),
+                                      Text(
+                                        state.proposal.proposalToken,
+                                        style: TextStyle(
+                                            fontSize: 14, fontWeight: FontWeight.bold,color: Colors.white),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          state.proposal.proposalStatus,
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                              fontSize: 14, fontWeight: FontWeight.bold,color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            color: Colors.lightBlueAccent,
+                            elevation: 2,
+                          ),
+                          SizedBox(height: 10.0),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color : Colors.white,
+                                border: Border.all(color: Colors.cyan,width: 2)
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(child: Text('Description : ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black)),)
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text(state.proposal.proposalDescription,style: TextStyle(color: Colors.black),))
+                                  ],
+                                ),
+                                SizedBox(height: 10,),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text('Note : ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black, fontStyle: FontStyle.italic)),)
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(child: Text(state.proposal.proposalNote,style: TextStyle(color: Colors.black, fontSize: 10),))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: _cardMenu(
+                                      icon: 'assets/images/calendar.png',
+                                      title: 'Require Date',
+                                      vertical: 10,
+                                      description:
+                                      DateFormat('yyyy-MM-dd').format(state.proposal.proposalRequireDate!),
+                                      color: Colors.yellow,
+                                      colorBorder: Colors.yellow,
+                                      fontColor: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: _cardMenu(
+                                      icon: 'assets/images/money.png',
+                                      title: 'Budget',
+                                      vertical: 10,
+                                      description:
+                                      formatRupiah(
+                                          state.proposal.proposalBudget.toDouble()),
+                                      color: Colors.blueGrey,
+                                      colorBorder: Colors.blueGrey,
+                                      fontColor: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: _cardMenu(
+                                      icon: 'assets/images/document.png',
+                                      title: 'Type',
+                                      vertical: 10,
+                                      description:
+                                      state.proposal.proposalType.trim(),
+                                      color: Colors.lightBlue,
+                                      colorBorder: Colors.lightBlue,
+                                      fontColor: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: _cardMenu(
+                                      icon: 'assets/images/truck.png',
+                                      title: 'Vendor : ${state.proposal.vendor?.vendorName}',
+                                      vertical: 10,
+                                      description: 'Alamat : ${state.proposal.vendor?.vendorAddress}',
+                                      color: Colors.cyan,
+                                      colorBorder: Colors.cyan,
+                                      fontColor: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 24.0),
+                        ],
+                      ),
                       SizedBox(height: 24.0),
                       BlocBuilder<ApprovalCubit, ApprovalState>(
                         builder: (BuildContext context, ApprovalState state) {
@@ -158,7 +288,12 @@ class ApprovalPage extends StatelessWidget {
                             return Column(
                               children: <Widget>[
                                 SizedBox(height: 5.0),
-                                Text("Approval Process"),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Approval Process", style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold,fontSize: 18)),
+                                  ],
+                                ),
                                 SizedBox(height: 5.0),
                                 _buildTimeline(timelineItems),
                                 SizedBox(height: 24.0),
@@ -171,7 +306,12 @@ class ApprovalPage extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 5.0),
-                      Text("Approval Proposal"),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Approval Proposal", style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold,fontSize: 18)),
+                        ],
+                      ),
                       _buildFormApproval(state.proposal.proposalToken)
                     ],
                   );
@@ -183,6 +323,53 @@ class ApprovalPage extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _cardMenu({
+    required String title,
+    required String description,
+    required String icon,
+    required double vertical,
+    // VoidCallback? onTap,
+    Color color = Colors.white,
+    Color colorBorder = Colors.white,
+    Color fontColor = Colors.grey,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: vertical,
+      ),
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: colorBorder,
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 3))
+          ]),
+      child: Column(
+        children: [
+          Image.asset(icon, height: 30),
+          const SizedBox(height: 5),
+          Text(
+            title,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: fontColor, fontSize: 16),
+          ),
+          Text(
+            '${description}',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: fontColor, fontSize: 14),
+          )
+        ],
       ),
     );
   }
@@ -358,9 +545,10 @@ class ApprovalPage extends StatelessWidget {
                                     _reasonController.text = "";
                                   }
                                 },
-                                child: Text('Approval'),
+                                child: Text('Process', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: const Size.fromHeight(50),
+                                  backgroundColor: Colors.cyan
                                 ),
                               )
                           ],

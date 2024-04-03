@@ -44,12 +44,17 @@ class _ProposalUpdatePageState extends State<ProposalUpdatePage> {
                 onPressed: () {
                   context.go('/proposal/${proposalToken}');
                 },
-                icon: Icon(Icons.arrow_back)
+                icon: Icon(Icons.arrow_back),
+                color: Colors.blueAccent,
             ),
           ),
           title: Text(
-            'Perbaikan Proposal',
-            // style: themeData.textTheme.headline1,
+            'Edit Proposal',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         body: Padding(
@@ -73,59 +78,127 @@ class _ProposalUpdatePageState extends State<ProposalUpdatePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          TextFormField(
-                            controller: _objectiveController,
-                            minLines: 1,
-                            maxLines: 2,
-                            decoration: InputDecoration(
-                              labelText: 'Objective Proposal',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value!.length == 0) {
-                                return 'Objective tidak boleh kosong!';
-                              }
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            controller: _descriptionController,
-                            minLines: 2,
-                            maxLines: null,
-                            decoration: InputDecoration(
-                              labelText: 'Description Proposal',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value!.length == 0) {
-                                return 'Deskripsi tidak boleh kosong!';
-                              }
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            controller: _budgetController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              RupiahInputFormatter(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Colors.blue.withOpacity(0.1),
+                                ),
+                                child: Icon(
+                                    Icons.drive_file_rename_outline_sharp,
+                                    color: Colors.blueAccent,
+                                    size: 30),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _objectiveController,
+                                  minLines: 1,
+                                  maxLines: 2,
+                                  decoration: InputDecoration(
+                                    labelText: 'Objective',
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.length == 0) {
+                                      return 'Objective tidak boleh kosong!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              )
                             ],
-                            decoration: InputDecoration(
-                              labelText: 'Budget (Rp)',
-                              border: OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value!.length == 0) {
-                                return 'Budget tidak boleh kosong!';
-                              }
-                              return null;
-                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Colors.blue.withOpacity(0.1),
+                                ),
+                                child: Icon(
+                                    Icons.description,
+                                    color: Colors.blueAccent,
+                                    size: 30),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child:
+                                TextFormField(
+                                  controller: _descriptionController,
+                                  minLines: 2,
+                                  maxLines: null,
+                                  decoration: InputDecoration(
+                                    labelText: 'Description',
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.length == 0) {
+                                      return 'Deskripsi tidak boleh kosong!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Colors.blue.withOpacity(0.1),
+                                ),
+                                child: Icon(
+                                    Icons.money,
+                                    color: Colors.blueAccent,
+                                    size: 30),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child:
+                                TextFormField(
+                                  controller: _budgetController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    RupiahInputFormatter(),
+                                  ],
+                                  decoration: InputDecoration(
+                                    labelText: 'Budget (Rp)',
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.length == 0) {
+                                      return 'Budget tidak boleh kosong!';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              )
+                            ],
                           ),
                           SizedBox(
                             height: 20,
@@ -203,9 +276,10 @@ class _ProposalUpdatePageState extends State<ProposalUpdatePage> {
                                     content: Text('Berhasil mengajukan pengadaan',style: TextStyle(fontWeight: FontWeight.bold),)));
                               }
                             },
-                            child: Text('Simpan Perubahan'),
+                            child: Text('Save Proposal', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(50),
+                              backgroundColor: Colors.yellow
                             ),
                           )
                         ],

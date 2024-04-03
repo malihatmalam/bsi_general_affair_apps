@@ -33,20 +33,39 @@ class ProposalHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('History Proposal'),
-          bottom: TabBar(
-            tabs: _tabs,
-            indicatorColor: Colors.blue, // Optional customization
+    return SafeArea(
+      child: DefaultTabController(
+        length: _tabs.length,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Row(
+              children: [
+                Icon(Icons.history_sharp,color: Colors.blueAccent),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    'My History Proposal',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            bottom: TabBar(
+              tabs: _tabs,
+              indicatorColor: Colors.blue, // Optional customization
+            ),
+          ),
+          body: TabBarView(
+            children: _tabContents,
           ),
         ),
-        body: TabBarView(
-          children: _tabContents,
-        ),
-      ),
+      )
     );
   }
 }

@@ -38,9 +38,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'BSI General Affair',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
+      color: Colors.white,
       routerConfig: RouterNavigation().getRoute(),
       debugShowCheckedModeBanner: false,
     );

@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
                                     backgroundColor: Theme.of(context)
                                         .colorScheme
                                         .primaryContainer,
-                                  ), child: const Text('Masuk'),
+                                  ), child: const Text('Login'),
                                 ),
                             ],
                           ),

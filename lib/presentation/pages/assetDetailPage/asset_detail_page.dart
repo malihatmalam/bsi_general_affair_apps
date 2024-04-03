@@ -43,10 +43,11 @@ class AssetDetailPage extends StatelessWidget {
         leading: Container(
           margin: EdgeInsets.all(4),
           child: IconButton(
-              onPressed: () {
-                context.go('/');
-              },
-              icon: Icon(Icons.arrow_back)
+            onPressed: () {
+              context.go('/');
+            },
+            icon: Icon(Icons.arrow_back),
+            color: Colors.blueAccent,
           ),
         ),
       ),
@@ -63,23 +64,113 @@ class AssetDetailPage extends StatelessWidget {
             } else if (state is AssetDetailLoading) {
               return Center(
                 child: CircularProgressIndicator(
-                  color: Colors.purpleAccent,
+                  color: Colors.blueAccent,
                 ),
               );
             } else if (state is AssetDetailLoaded) {
               return Column(
                 children: <Widget>[
                   SizedBox(height: 16.0),
-
-                  // Menampilkan data asset
-                  _buildUserInfo('ID Asset:', state.asset.assetNumber),
-                  _buildUserInfo('Nama Asset:', state.asset.asssetName),
-                  _buildUserInfo('Nomor Pabrik:', state.asset.assetFactoryNumber),
-                  _buildUserInfo('Kategori:', state.asset.assetCategory?.assetCategoryName ?? "Kosong"),
-                  _buildUserInfo('Brand:', state.asset.brand?.brandName ?? "Kosong"),
-                  _buildUserInfo('Harga:', formatRupiah(state.asset.assetCost.toDouble()) as String),
-                  _buildUserInfo('Kondisi:', state.asset.assetCondition),
-
+                  Card(
+                    child: Container(
+                      margin: EdgeInsets.all(15),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                state.asset.asssetName,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.archive_outlined,color: Colors.white),
+                              SizedBox(width: 10,),
+                              Text(
+                                state.asset.assetNumber,
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold,color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    color: Colors.lightBlueAccent,
+                    elevation: 2,
+                  ),
+                  SizedBox(height: 10.0),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color : Colors.white,
+                        border: Border.all(color: Colors.cyan,width: 2)
+                    ),
+                    child: Column(
+                      children: [
+                        Text('Detail Information : ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black)),
+                        SizedBox(height: 15,),
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.factory),
+                                SizedBox(width: 10,),
+                                Text('Factory Number: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
+                                Expanded(child: Text('${state.asset.assetFactoryNumber}',style: TextStyle(fontSize: 16, color: Colors.grey),))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.category),
+                                SizedBox(width: 10,),
+                                Text('Category: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
+                                Expanded(child: Text('${state.asset.assetCategory?.assetCategoryName}',style: TextStyle(fontSize: 16, color: Colors.grey),))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.badge),
+                                SizedBox(width: 10,),
+                                Text('Brand: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
+                                Expanded(child: Text('${state.asset.brand?.brandName}',style: TextStyle(fontSize: 16, color: Colors.grey),))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.money),
+                                SizedBox(width: 10,),
+                                Text('Cost: ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black)),
+                                Expanded(child: Text('${formatRupiah(state.asset.assetCost.toDouble()) as String}',style: TextStyle(fontSize: 16, color: Colors.grey),))
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(child: Text(state.proposal.proposalDescription,style: TextStyle(color: Colors.black),))
+                        //   ],
+                        // ),
+                        SizedBox(height: 10,),
+                        // Row(
+                        //   children: [
+                        //     Expanded(child: Text('Note : ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black, fontStyle: FontStyle.italic)),)
+                        //   ],
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Expanded(child: Text(state.proposal.proposalNote,style: TextStyle(color: Colors.black, fontSize: 10),))
+                        //   ],
+                        // )
+                      ],
+                    ),
+                  ),
                   // Tombol logout
                   SizedBox(height: 24.0),
                 ],

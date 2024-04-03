@@ -48,6 +48,7 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Center(
               child: bottomNavScreen.elementAt(state.tabIndex)),
           bottomNavigationBar: CustomBottomNavigationBar(
